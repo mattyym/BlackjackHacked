@@ -91,7 +91,8 @@ def blackjack():
 
 # Main stuff to run the program
 if __name__ == "__main__":
-    while True:
+    replay = True
+    while replay:
         deck = list(cards.keys()) * 4
         random.shuffle(deck)
         if player_points <= 0:
@@ -99,6 +100,14 @@ if __name__ == "__main__":
             print("You suck! Get some bread. Game over.")
             break
         blackjack()
-        play_again = input("Play again? (y/n): ").lower()
-        if play_again != "y":
-            break
+        while True:
+            play_again = input("Play again? (y/n): ").lower()
+            if play_again == "y":
+                break
+            elif play_again == "n":
+                print("Thanks for playing! Goodbye.")
+                replay = False
+                break
+            else:
+                print("\nInvalid input. Please enter 'y' or 'n'.\n")
+                continue
