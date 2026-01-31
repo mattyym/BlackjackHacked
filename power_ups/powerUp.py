@@ -15,15 +15,15 @@ def DrawTwo(deck: list):
     resultOne = deck.pop()
     resultTwo = deck.pop()
     while True:
-        response = input("The first card is: ", resultOne, " The second card is: ", resultTwo, " Pick which card you want(1/2): ")
-        if response == 1:
+        response = input(f"The first card is: {resultOne} The second card is: {resultTwo} Pick which card you want(1/2): ")
+        if response == "1":
             print("The card: ", resultOne, "will be added to your hand")
             return resultTwo
-        elif response == 2:
+        elif response == "2":
             print("The card: ", resultTwo, "Will be added to your hand")
             return resultOne
         else:
-            print("Invalid option")
+            print("Invalid option, please choose one or two")
 
 def Mulligan(deck: list):
     return deck.pop()
