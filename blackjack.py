@@ -83,6 +83,18 @@ def blackjack():
         if move == "h":
             player_hand.append(deal_card())
             show_hand(player_hand, "Player")
+            if hand_value(player_hand) >= 21:
+                break
+            for power in player_powerUps:
+                if power == "duplicate":
+                    duplicateUse = input("Use Duplicate power(Duplicate last card)?(y/n): ")
+                    if duplicateUse == "y":
+                        player_powerUps.remove(power)
+                        duplicated_card = player_hand[-1]
+                        player_hand.append(duplicated_card)
+                        print("\nCard duplicated!")
+                        show_hand(player_hand, "Player")
+                    break
         else:
             break
 
