@@ -14,13 +14,16 @@ def Duplicate(deck: list):
 def DrawTwo(deck: list):
     resultOne = deck.pop()
     resultTwo = deck.pop()
-    response = input("The first card is: ", resultOne, " do you want to keep this card? No to draw again (Y/N)")
-    if response == "N":
-        print("The card: ", resultTwo, "will be added to your hand")
-        return resultTwo
-    else:
-        print("The card: ", resultOne, "Will be added to your hand")
-        return resultOne
+    while True:
+        response = input("The first card is: ", resultOne, " The second card is: ", resultTwo, " Pick which card you want(1/2): ")
+        if response == 1:
+            print("The card: ", resultOne, "will be added to your hand")
+            return resultTwo
+        elif response == 2:
+            print("The card: ", resultTwo, "Will be added to your hand")
+            return resultOne
+        else:
+            print("Invalid option")
 
 def Mulligan(deck: list):
     return deck.pop()
