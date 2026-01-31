@@ -2,9 +2,9 @@ def Peek(deck: list) -> string:
     return "The next card in the deck is: ", deck[-1]
 
 def xRay(dealerHand: list) -> string:
-    return "The dealers next card is: ", deck[-1]
+    return "The dealers next card is: ", dealerHand[-1]
 
-def Insurance(betAmt: int):
+def Insurance():
     # lock losses to 50%
     return "Cut your losses in half this hand!"    
 
