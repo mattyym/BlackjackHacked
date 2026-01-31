@@ -1,9 +1,11 @@
 import random
+import power_ups.powerUp
 
 # Create the card deck
 cards = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10, "A": 11}
 player_hand = []
 dealer_hand = []
+player_powerUps = ["peek"]
 player_points = 1000
 
 # Function to pick a random card
@@ -47,6 +49,12 @@ def blackjack():
 
     # Loop for player to hit or stand
     while hand_value(player_hand) < 21:
+        for power in player_powerUps:
+            if power == "peek":
+                peekUse = input("Use peek power(See next card)?(y/n): ")
+                if peekUse == "y":
+                    player_powerUps.remove(power)
+                    print(power_ups.powerUp.Peek(deck))
         move = input("Hit or Stand? (h/s): ").lower()
         if move == "h":
             player_hand.append(deal_card())
