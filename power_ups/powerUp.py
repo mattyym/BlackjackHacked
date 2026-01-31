@@ -1,8 +1,8 @@
 def Peek(deck: list) -> str:
     return f"The next card in the deck is: {deck[-1]}"
 
-def xRay(dealerHand: list) -> str:
-    return "The dealers next card is: ", dealerHand[-1]
+# def xRay(dealerHand: list) -> str:
+#     return f"The dealers other card is: {dealerHand[-1]}"
 
 def Insurance():
     # lock losses to 50%

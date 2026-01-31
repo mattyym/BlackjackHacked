@@ -5,12 +5,12 @@ import power_ups.powerUp
 cards = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10, "A": 11}
 player_hand = []
 dealer_hand = []
-player_powerUps = ["peek"]
+player_powerUps = ["xray"]
 player_points = 1000
 
 # Function to pick a random card
 def deal_card():
-    return deck.pop(0)
+    return deck.pop()
 
 # Function to return the full value of a hand
 def hand_value(hand):
@@ -55,6 +55,12 @@ def blackjack():
                 if peekUse == "y":
                     player_powerUps.remove(power)
                     print(power_ups.powerUp.Peek(deck))
+            if power == "xray":
+                xrayUse = input("Use Xray power(See dealer's other card)?(y/n): ")
+                if xrayUse == "y":
+                    player_powerUps.remove(power)
+                    print("Showing Dealer's Full Hand:")
+                    show_hand(dealer_hand, "Dealer")
         move = input("Hit or Stand? (h/s): ").lower()
         if move == "h":
             player_hand.append(deal_card())
