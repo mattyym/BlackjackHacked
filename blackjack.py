@@ -5,7 +5,7 @@ import power_ups.powerUp
 cards = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10, "A": 11}
 player_hand = []
 dealer_hand = []
-player_powerUps = []
+player_powerUps = ["drawTwo"]
 player_points = 1000
 
 # Function to pick a random card
@@ -79,6 +79,16 @@ def blackjack():
                     print("Showing Dealer's Full Hand:")
                     show_hand(dealer_hand, "Dealer")
                 break
+        for power in player_powerUps:
+            if power == "drawTwo":
+                drawTwoUse = input("Use DrawTwo power(See two cards and pick the better one.(y/n): )")
+                if drawTwoUse == "y":
+                    player_powerUps.remove(power)
+                    new_card = power_ups.powerUp.DrawTwo(deck)
+                    player_hand.append(new_card)
+                    show_hand(player_hand, "Player")
+                break
+
         move = input("Hit or Stand? (h/s): ").lower()
         if move == "h":
             player_hand.append(deal_card())
