@@ -5,7 +5,7 @@ import power_ups.powerUp
 cards = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10, "A": 11}
 player_hand = []
 dealer_hand = []
-player_powerUps = ["xray"]
+player_powerUps = []
 player_points = 1000
 
 # Function to pick a random card
@@ -28,12 +28,26 @@ def show_hand(hand, owner):
 # Main blackjack gameplay function
 def blackjack():
     global player_points
+    insuranceCheck = False
     # Initiate bet amount
     while True:
+        for power in player_powerUps:
+            if power == "insurance":
+                insuranceUse = input("Use insurance power(Lose max 50% of bet)?(y/n): ")
+                if insuranceUse == "y":
+                    player_powerUps.remove(power)
+                    insuranceCheck = True
+                    print("Insurance Power is on for this round!!\n")
+
         print(f"You have {player_points} points.")
         bet = input("Enter your bet amount (Win -> Bet x 2): ")
         if bet.isdigit() and 0 < int(bet) <= player_points:
-            bet = int(bet)
+            if insuranceCheck:
+                betLose = int(bet) / 2
+                betLose = int(betLose)
+                betWin = int(bet)
+            else:
+                betLose = betWin = int(bet)
             break
         else:
             print("Invalid bet amount. Please try again.")
@@ -70,8 +84,10 @@ def blackjack():
 
     # If player is over 21 they bust
     if hand_value(player_hand) > 21:
-        player_points -= bet
-        print("You busted, the dealer smoked yo buns!!\n")
+        player_points -= betLose
+        print("\nYou busted, the dealer smoked yo buns!!")
+        if insuranceCheck:
+            print("Luckily, you only lost half of your bet because of that Insurance!! Good clutch up.")
         print(f"You now have {player_points} points.\n")
         return
 
@@ -92,12 +108,14 @@ def blackjack():
 
     # Establish winner and display that
     if dealer_total > 21 or player_total > dealer_total:
-        player_points += bet
+        player_points += betWin
         print("\nYou won!\n")
         print(f"You now have {player_points} points.\n")
     elif player_total < dealer_total:
-        player_points -= bet
+        player_points -= betLose
         print("\nYou lost!\n")
+        if insuranceCheck:
+            print("Luckily, you only lost half of your bet because of that Insurance!! Good clutch up.")
         print(f"You now have {player_points} points.\n")
     else:
         print("\nDraw!\n")
@@ -105,6 +123,18 @@ def blackjack():
 
 # Main stuff to run the program
 if __name__ == "__main__":
+    print("\nWelcome to Black Jack Hacked: An EPIC version of BlackJack(With PowerUps)!")
+    print("\nPlease review the basic rules of BlackJack before you play:")
+    print("\tGet closer to 21 than the dealer without going over!")
+    print("\tNumber cards are the value of their number, Duh, how didn't you know that already???")
+    print("\t10, Jack, Queen, King count as 10 and Aces can be 1 or 11!")
+    print("\nPowerUps:")
+    print("\tPeek: Let's you see the next card in the deck")
+    print("\tXray: Let's you see the Dealer's other current card")
+    print("\tInsurance: Ensures you only lose at most half of your bet")
+    print("\tDuplicate: Get a second of the last card you drew")
+    print("\tDrawTwo: Draw two cards and pick which one you would prefer more")
+    print("\tMulligan: Let's you redraw your last card\n")
     replay = True
     while replay:
         deck = list(cards.keys()) * 4
