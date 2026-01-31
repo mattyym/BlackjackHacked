@@ -17,11 +17,11 @@ def DrawTwo(deck: list):
     while True:
         response = input(f"The first card is: {resultOne} The second card is: {resultTwo} Pick which card you want(1/2): ")
         if response == "1":
-            print("The card: ", resultOne, "will be added to your hand")
-            return resultTwo
-        elif response == "2":
-            print("The card: ", resultTwo, "Will be added to your hand")
+            print("The card: ", resultOne, " will be added to your hand")
             return resultOne
+        elif response == "2":
+            print("The card: ", resultTwo, " will be added to your hand")
+            return resultTwo
         else:
             print("Invalid option, please choose one or two")
 
