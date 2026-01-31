@@ -38,6 +38,7 @@ def blackjack():
                     player_powerUps.remove(power)
                     insuranceCheck = True
                     print("Insurance Power is on for this round!!\n")
+                break
 
         print(f"You have {player_points} points.")
         bet = input("Enter your bet amount (Win -> Bet x 2): ")
@@ -69,12 +70,15 @@ def blackjack():
                 if peekUse == "y":
                     player_powerUps.remove(power)
                     print(power_ups.powerUp.Peek(deck))
+                break
+        for power in player_powerUps:
             if power == "xray":
                 xrayUse = input("Use Xray power(See dealer's other card)?(y/n): ")
                 if xrayUse == "y":
                     player_powerUps.remove(power)
                     print("Showing Dealer's Full Hand:")
                     show_hand(dealer_hand, "Dealer")
+                break
         move = input("Hit or Stand? (h/s): ").lower()
         if move == "h":
             player_hand.append(deal_card())
