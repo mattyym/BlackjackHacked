@@ -5,7 +5,7 @@ import power_ups.powerUp
 cards = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10, "A": 11}
 player_hand = []
 dealer_hand = []
-player_powerUps = ["drawTwo"]
+player_powerUps = ["mulligan"]
 player_points = 1000
 
 # Function to pick a random card
@@ -81,7 +81,7 @@ def blackjack():
                 break
         for power in player_powerUps:
             if power == "drawTwo":
-                drawTwoUse = input("Use DrawTwo power(See two cards and pick the better one.(y/n): )")
+                drawTwoUse = input("Use DrawTwo power(See two cards and pick the better one)?(y/n): ")
                 if drawTwoUse == "y":
                     player_powerUps.remove(power)
                     new_card = power_ups.powerUp.DrawTwo(deck)
@@ -93,6 +93,17 @@ def blackjack():
         if move == "h":
             player_hand.append(deal_card())
             show_hand(player_hand, "Player")
+            for power in player_powerUps:
+                if power == "mulligan":
+                    mulliganUse = input("Use Mulligan power(Redraw your last card)?(y/n): ")
+                    if mulliganUse == "y":
+                        player_powerUps.remove(power)
+                        old_card = player_hand.pop()
+                        new_card = deal_card()
+                        player_hand.append(new_card)
+                        print(f"Last card redrawn from {old_card} and is now {new_card}!")
+                        show_hand(player_hand, "Player")
+                    break
             if hand_value(player_hand) >= 21:
                 break
             for power in player_powerUps:
@@ -112,9 +123,11 @@ def blackjack():
     if hand_value(player_hand) > 21:
         player_points -= betLose
         print("\nYou busted, the dealer smoked yo buns!!")
+        print("This is what the dealer had:")
+        show_hand(dealer_hand, "Dealer")
         if insuranceCheck:
             print("Luckily, you only lost half of your bet because of that Insurance!! Good clutch up.")
-        print(f"You now have {player_points} points.\n")
+        print(f"\nYou now have {player_points} points.\n")
         return
 
     # Show the dealers hand and have it hit or stand for its turn
