@@ -1,12 +1,14 @@
 import random
 import power_ups.powerUp
+import power_ups.powerUpRandomizer
 
 # Create the card deck
 cards = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10, "A": 11}
 player_hand = []
 dealer_hand = []
-player_powerUps = ["mulligan"]
+player_powerUps = []
 player_points = 1000
+newPowerLine = 2000
 
 # Function to pick a random card
 def deal_card():
@@ -27,6 +29,7 @@ def show_hand(hand, owner):
 
 # Main blackjack gameplay function
 def blackjack():
+    global newPowerLine
     global player_points
     insuranceCheck = False
     # Initiate bet amount
@@ -150,6 +153,12 @@ def blackjack():
         player_points += betWin
         print("\nYou won!\n")
         print(f"You now have {player_points} points.\n")
+        if player_points >= newPowerLine:
+            newPowerLine *= 2
+            print(f"Congratulations, you win a new random powerUp!! (Next power up at {newPowerLine})")
+            newPower = power_ups.powerUpRandomizer.givePowerUpRandomizer()
+            player_powerUps.append(newPower)
+
     elif player_total < dealer_total:
         player_points -= betLose
         print("\nYou lost!\n")
@@ -167,6 +176,8 @@ if __name__ == "__main__":
     print("\tGet closer to 21 than the dealer without going over!")
     print("\tNumber cards are the value of their number, Duh, how didn't you know that already???")
     print("\t10, Jack, Queen, King count as 10 and Aces can be 1 or 11!")
+    print("\nSpecific our game rules:")
+    print("\tNew random powerUp after 2000 points, then 4000, then 8000, and so on")
     print("\nPowerUps:")
     print("\tPeek: Let's you see the next card in the deck")
     print("\tXray: Let's you see the Dealer's other current card")
