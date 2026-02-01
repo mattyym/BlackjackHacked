@@ -62,6 +62,9 @@ def blackjack():
 
     # Display for start of game
     print("\n--- Blackjack ---\n")
+    for power in player_powerUps:
+        print(f"PowerUp Available: {power}")
+    print("\n")
     show_hand(player_hand, "Player")
     print(f"Dealer shows: {dealer_hand[0]}\n")
 
